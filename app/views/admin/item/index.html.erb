@@ -1,0 +1,25 @@
+<h3>Liste d'articles du magasin</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Nom de l'article</strong></td>
+			<td><strong>Stock</strong></td>
+			<td><strong>Unité</strong></td>
+			<td> <strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@items.each do |item|%>		
+		<tr>
+			
+			<td> <%=link_to item.name,{:action=>'show',:id=>item.id}%></td>
+			<td> <%= item.stock%></td>
+			<td> <%= item.unit%></td>
+			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>item.id}%>
+			|<%=link_to 'Supprimer',{:action=>'delete',:id=>item.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Nouveau', :action=>'new'%>

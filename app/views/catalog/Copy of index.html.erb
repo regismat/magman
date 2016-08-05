@@ -1,0 +1,26 @@
+<h3>Liste d'articles du magasin</h3>
+
+<table>
+	<thead>
+		<tr>
+			
+			<td><b>Nom</b></td>
+			<td><b>Stock</b></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@items.each do |item|%>
+				
+		<tr>
+			
+			<td><%=link_to item.name,{:action=>'show',:id=>item.id}%></td>
+			<td><%= item.stock%></td>
+			<td><strong>
+
+</strong></td>
+	
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+

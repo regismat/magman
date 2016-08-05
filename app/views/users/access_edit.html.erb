@@ -1,0 +1,24 @@
+<h3>Compte utilisateur : <i><%=@user.username%></i></h3>
+
+<%= form_for @user, :url=>{:action=>'access_update', :id=>@user} do |user|%>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Formulaire invalide</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <label for='proprietaire' >Propriétaire:
+<%=collection_select(:user, :customer_id, @customers, :id, :names)%>
+  </p>
+    <label for='acces' >Droit d'accès:
+<%=collection_select(:user, :role_id, @roles, :id, :title)%>
+  </p> 
+  
+  <p class="button"><%=submit_tag "Enregistrer"%></p>
+<% end %>
+<p><%=link_to 'Retour', :action=>:list%></p>

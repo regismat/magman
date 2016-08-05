@@ -1,0 +1,18 @@
+<h1>Ajout de droit d'accès:</h1>
+
+<%=form_tag :action=>'create' do%>
+
+<table>
+	<tr>
+		<td>Titre       :</td>
+		<td><%=text_field 'role','title'%></td>
+	</tr>	
+	<tr>
+		<td>Description :</td>
+		<td><%=text_area 'role','description'%></td>
+	</tr>	
+</table>
+
+<%=submit_tag 'Enregistrer'%>
+<%end%>
+<%=link_to 'Retour', {:action=>'list'}%>

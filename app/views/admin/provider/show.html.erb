@@ -1,0 +1,16 @@
+<h3>Modification du fournisseur: <i><%=@provider.names%></i></h3> 
+
+<table>
+	<tr>
+		<td>Noms</td><td><b>: <%=@provider.names%></td></b>
+	</tr>
+	<tr>
+		<td>Téléphone</td><td><b>: <%=@provider.telephone%></td></b>
+	</tr>
+	<tr>
+		<td>E-mail</td><td><b>: <%=@provider.email%></td></b>
+	</tr>
+</table>
+
+<p><%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Modifier', :action=>'edit',:id=>@provider %></p>

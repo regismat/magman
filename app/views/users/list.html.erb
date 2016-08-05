@@ -1,0 +1,30 @@
+<h1>Liste d'utilisateurs</h1>
+<table>
+	<thead>
+		<tr>
+			<td>Nom d'utilisateur</td>
+			<td>Proprietaire</td>
+			<td>Niveau d'accès</td>
+			<td>Action</td>
+		</tr>
+		
+	</thead>
+	<%@users.each do |u|%>
+	<tbody>
+		<tr>
+			<td><%=u.username%></td>
+			<%if u.customer%>
+			<td><%=link_to u.customer.names,{:controller=>'admin/customer',:action=>:show,:id=>u.customer_id}%></td>
+			<%end%>
+		
+			<td><%if u.role%>
+			<%=u.role.title%>
+			<%end%></td>
+			<td><%=link_to 'Mot de passe',:action=>'edit', :id=>u%></td>
+			<td><%=link_to "Propriétaire/niveau d'accès",:action=>'access_edit', :id=>u%></td>
+		</tr>
+	</tbody>
+	<%end%>
+	
+</table>
+  

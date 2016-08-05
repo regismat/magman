@@ -1,0 +1,25 @@
+<h3>Modification de l'article: <i><%=@item.name%></i></h3>
+<%= form_for @item, :url=>{:action=>'update', :id=>@item} do |prov|%>
+
+<table>
+	<tr>
+		<td><label for="item_name">Nom</label></td><td>: <%=text_field 'item','name'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="item_detail">Description</label></td>
+		<td>: <%=text_field 'item', 'detail'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="item_stock">Quantité en stock</label></td><td>: <%=text_field 'item','stock'%></td>
+	</tr>
+	<tr>
+		<td><label for="item_unit">Unité de mesure</label></td><td>: <%=text_field 'item','unit'%></td>
+	</tr>
+	<tr>
+		<td><%=submit_tag "Update"%></td>
+	</tr>
+</table>
+<%end%>
+<%=link_to 'Retour', :action=>'index'%>

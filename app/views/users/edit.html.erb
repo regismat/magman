@@ -1,0 +1,31 @@
+<h3>Compte utilisateur : Modification</h3>
+<%= form_for @user, :url=>{:action=>'update', :id=>@user} do |user|%>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Formulaire invalide</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <p>
+    <label for='username' >Username<br />
+    <%=text_field 'user','username'%>
+  </p>
+  
+  <p>
+    <label for='password' >Password<br />
+    <%=password_field 'user','password'%>
+    
+  </p>
+  
+  <p>
+  	<label for='password_confimation' >Confirm password<br />
+    <%=password_field 'user','password_confirmation'%>
+  </p>
+  
+  <p class="button"><%=submit_tag "Submit"%></p>
+<% end %>
+<p><%=link_to 'Retour', :action=>:list%></p>

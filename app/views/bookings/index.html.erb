@@ -1,0 +1,21 @@
+<%=render '/bookings/bookings'%>
+<%=render '/bookings/new'%>
+<table>
+	<thead>
+		<tr>
+			
+			<td><b>Nom</b></td>
+			<td><b>Stock</b></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@items.each do |article|%>
+				
+		<tr>
+			<td><%=article.name%></td>
+			<td><%=article.stock%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+

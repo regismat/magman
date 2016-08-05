@@ -1,0 +1,25 @@
+<h3>Nouvel article</h3>
+<%= form_tag :action=>'create' do%>
+
+<table>
+	<tr>
+		<td><label for="item_name">Noms</label></td><td>: <%=text_field 'item','name'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="item_detail">Description</label></td>
+		<td>: <%=text_field 'item', 'detail'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="item_stock">Quantité en stock</label></td><td>: <%=text_field 'item','stock'%></td>
+	</tr>
+	<tr>
+		<td><label for="item_unit">Unité de mesure</label></td><td>: <%=text_field 'item','unit'%></td>
+	</tr>
+	<tr>
+		<td><%=submit_tag "Ajouter"%></td>
+	</tr>
+</table>
+<%end%>
+<%=link_to 'Retour', :action=>'index'%>

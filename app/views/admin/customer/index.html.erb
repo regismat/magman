@@ -1,0 +1,23 @@
+<h3>Liste des agents</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Noms</td>
+			<td>Service</td>
+			<td>Actions</td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@customers.each do |cust|%>		
+		<tr>
+			
+			<td><%=link_to cust.names,{:action=>'show',:id=>cust.id}%></td>
+			<td><%=link_to cust.department.description,{:controller=>'department',:action=>'index'}%></td>
+			<td><%=link_to 'Modifier',{:action=>'edit',:id=>cust.id}%></td>
+			<td><%=link_to 'Supprimer',{:action=>'delete',:id=>cust.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Nouveau', :action=>'new'%>

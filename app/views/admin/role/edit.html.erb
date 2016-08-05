@@ -1,0 +1,19 @@
+<h1>Ajout de droit d'accès:</h1>
+
+<%= form_for @role, :url => {:action=>'update', :id=>@role} do |r|%>
+
+<table>
+	<tr>
+		<td>Titre       :</td>
+		<td><%=r.text_field 'title'%></td>
+	</tr>	
+	<tr>
+		<td>Description :</td>
+		<td><%=r.text_area 'description'%></td>
+	</tr>	
+</table>
+
+<%=r.submit 'Enregistrer modifications'%>
+<%end%>
+<%=link_to 'Retour', {:action=>'list'}%>
+

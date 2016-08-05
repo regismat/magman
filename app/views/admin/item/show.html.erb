@@ -1,0 +1,19 @@
+<h3>Détails de l'article : <i><%=@item.name%></i></h3>  
+
+<table>
+	<tr>
+		<td>Nom</td><td><b>: <%=@item.name%></td></b>
+	</tr>
+	<tr>
+		<td>Description</td><td><b>: <%=@item.detail%></td></b>
+	</tr>
+	<tr>
+		<td>Quantité en stock</td><td><b>: <%=@item.stock%></td></b>
+	</tr>
+	<tr>
+		<td>Unité de mesure</td><td><b>: <%=@item.unit%></td></b>
+	</tr>
+</table>
+
+<p><%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Modifier', :action=>'edit',:id=>@item %></p>

@@ -1,0 +1,25 @@
+<h3>Modification des informations de <i><%=@customer.names%></i></h3>
+<%= form_for @customer, :url=>{:action=>'update', :id=>@customer} do |cust|%>
+
+<table>
+	<tr>
+		<td><label for="customer_names">Noms :</label></td><td><%=text_field 'customer','names'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="customer_service">Service :</label></td>
+		<td><%= collection_select(:customer, :department_id, @departments, :id, :description)%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="customer_telephone">Téléphone :</label></td><td><%=text_field 'customer','telephone'%></td>
+	</tr>
+	<tr>
+		<td><label for="customer_email">E-mail :</label></td><td><%=text_field 'customer','email'%></td>
+	</tr>
+	<tr>
+		<td><%=submit_tag "Update"%></td>
+	</tr>
+</table>
+<%end%>
+<%=link_to 'Retour', :action=>'index'%>

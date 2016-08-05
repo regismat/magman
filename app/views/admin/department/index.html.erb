@@ -1,0 +1,20 @@
+<h3>Départements et services</h3>
+
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Nom du service</strong></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+<%@department.each do |dep|%>		
+		<tr>
+			<td><%=dep.description%></td>
+			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>dep.id}%>|<%=link_to 'Supprimer',{:action=>'delete',:id=>dep.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Ajouter', :action=>'new'%>

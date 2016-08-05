@@ -1,0 +1,21 @@
+<h3>Articles en cours de stock:</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Nom</td>
+			<td>Quantié en stock</td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@items.each do |item| %>
+				<%if item.stock<6%>
+		<tr>
+			
+			<td><%=link_to item.name,{:action=>'show',:id=>item.id}%></td>
+			<td><%= item.stock%></td>
+		</tr>
+		<%end%>
+		<%end%>
+	</tbody>
+</table>

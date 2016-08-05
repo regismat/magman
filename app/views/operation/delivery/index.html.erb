@@ -1,0 +1,40 @@
+<h3>Ravitaillement du magasin</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Article</strong></td>
+			<td><strong>Qté</strong></td>
+			<td><strong>P.unitaire</strong></td>
+			<td><strong>P.total</strong></td>
+			<td><strong>Fournisseur</strong></td>
+			<td><strong>Acheteur</strong></td>
+			<td><strong>Référence</strong></td>
+			<td><strong>Date</strong></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%if @deliveries.nil?%>
+		<%flash[:notice]='pas de ravitaillement enregistré.'%>
+		<%else%>
+		<%@deliveries.each do |deliv|%>		
+		<tr>
+			
+			<td><%= deliv.item.name%></td>
+			<td><%= deliv.quantity%></td>
+			<td><%= deliv.price%></td>
+			<td><%= deliv.price*deliv.quantity%></td>
+			<td><%= deliv.provider.names %></td>
+			<td><%=deliv.customer.names%></td>
+			<td><%=deliv.reference%></td>
+			<td><%= deliv.date%></td>
+			
+			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>deliv.id}%>|<%=link_to 'Supprimer',{:action=>'delete',:id=>deliv.id}%></td>
+		
+		</tr>
+		<%end%>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Nouveau', :action=>'new'%>

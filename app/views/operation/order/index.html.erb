@@ -1,0 +1,28 @@
+<h3>Sortie des articles du magasin </h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Article</td>
+			<td>Quantité</td>
+			<td>Demandeur</td>
+			<td>Date</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<%@orders.each do |ord|%>		
+		<tr>
+			
+			<td><%= ord.item.name%></td>
+			<td><%= ord.quantity%></td>
+			<td><%= ord.customer.names%></td>
+			<td><%= ord.date%></td>
+			
+			<td><%=link_to 'Modifier',{:action=>'edit',:id=>ord.id}%></td>
+			<td><%=link_to 'Supprimer',{:action=>'delete',:id=>ord.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Nouveau', :action=>'new'%>

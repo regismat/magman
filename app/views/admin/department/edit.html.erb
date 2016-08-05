@@ -1,0 +1,7 @@
+<h2>Modification du département: <%=@department.description%> </h3>
+
+<%= form_for @department, :url => {:action=>'update', :id=>@department} do |dep|%>
+<p>Nom du département: <%=dep.text_field 'description'%></p>
+<%=dep.submit "Enregistrer modifications"%>
+<%end%>
+<%=link_to 'Retour', :action=>'index'%>

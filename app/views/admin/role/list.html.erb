@@ -1,0 +1,20 @@
+<h3>Droits d'accès:</h3>
+
+<table>
+	<thead>
+		<tr>
+			<td>Nom</td>
+			<td>Description du droit d'accès</td>
+		</tr>
+	</thead>
+	<tbody>
+<%@roles.each do |r|%>		
+		<tr>
+			<td><%=r.title%></td>
+			<td><%=r.description%></td>
+			<td><%=link_to 'Modifier',{:action=>'edit',:id=>r.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Ajouter', :action=>'new'%>

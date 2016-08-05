@@ -1,0 +1,36 @@
+<h1>Révision de l'opération</h1>
+<%=form_for @delivery, :url=> {:action=>'update',:id=>@delivery} do |deliv|%>
+
+<table>
+	<tr>
+		<td><label for="deliv_item_name">Article :</label></td><td><%=collection_select(:delivery, :item_id, @items, :id, :name)%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="deliv_quantity">Quantité :</label></td><td><%=text_field 'delivery','quantity'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="deliv_price_unit">Prix unitaire :</label></td><td><%=text_field 'delivery','price'%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="deliv_provider">Fournisseur :</label></td><td><%=collection_select(:delivery, :provider_id, @providers, :id, :names)%></td>
+	</tr>
+	<tr>
+		<td><label for="deliv_buyer">Acheteur :</label></td><td><%=collection_select(:delivery,:customer_id, @customers, :id, :names)%></td>
+	</tr>
+	
+	<tr>
+		<td><label for="deliv_ref">Référence :</label></td><td><%=text_field 'delivery','reference'%></td>
+	</tr>
+	<tr>
+		<td><label for="deliv_date">Date :</label></td><td><%=date_select 'delivery','date'%></td>
+	</tr>
+	
+	<tr>
+		<td><%=submit_tag "Enregistrer"%></td>
+	</tr>
+</table>
+<%end%>
+<%=link_to 'Retour', :action=>'index'%>

@@ -1,0 +1,6 @@
+<h3>Ajout d'un nouveau département</h3>
+<%=form_tag :action=>'create' do%>
+<p><label for="Dep_description">Nom du département ou service<%=text_field 'department','description'%></p>
+<%=submit_tag 'Enregistrer'%>
+<%end%>
+<%=link_to 'Retour', {:action=>'index'}%>

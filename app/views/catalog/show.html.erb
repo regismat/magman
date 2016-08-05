@@ -1,0 +1,14 @@
+Details sur l'article : <strong><h2><%=@item.name%></strong></h2>
+
+<table>
+	
+	<tr>
+		<td>Description : </td><td><b><%=@item.detail%></td></b>
+	</tr>
+	<tr>
+		<td>Quantité en stock :</td><td><b><%=@item.stock%></td></b>
+	</tr>
+</table>
+
+<p><%=link_to 'Retour', :action=>'index'%></p>
+

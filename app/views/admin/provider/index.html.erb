@@ -1,0 +1,22 @@
+<h3>Liste des fournisseurs (entreprises et individus)</h3>
+<table>
+	<thead>
+		<tr>
+			<td><strong>Etablissement</strong></td>
+			<td><strong>Ville</strong></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@providers.each do |prov|%>		
+		<tr>
+			
+			<td><%=link_to prov.names,{:action=>'show',:id=>prov.id}%></td>
+			<td><%= prov.town%></td>
+			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>prov.id}%>
+			|<%=link_to 'Supprimer',{:action=>'delete',:id=>prov.id}%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=link_to 'Nouveau', :action=>'new'%>

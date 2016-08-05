@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>MagMan</title>
+  <%= stylesheet_link_tag "style" %>
+</head>
+<body id="library">
+	<div id="container">
+	<div id="header">
+		<h1>MagMan</h1>
+		<small>Powered by RoR</small>
+		<h2><b></b></h2>
+		<div id="user_nav">
+  	<%if current_user%>
+  	<%if current_user.customer%>
+  	Logged in as <%=current_user.customer.names%>.
+  		<%=link_to 'Log out', logout_path %>
+  		
+  		<%else%>
+  		<%= link_to "Sign up", signup_path %> or
+    <%= link_to "Log in", login_path%>
+  		<%end%>
+  		<%else%>
+    <%= link_to "Sign up", signup_path %> or
+    <%= link_to "Log in", login_path%>
+    <%end%>
+  <%if current_user%>
+  		<h2><b>
+</b></h2> 
+    <%end%>
+</div>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+	</div>
+	<% if flash[:notice] %>
+	<div id="notice">
+		<strong><%= flash[:notice] %></strong>
+	</div>
+	<% end %>
+<nav id="nav">
+	<ul id="navigation">
+		<li><a>Articles &raquo;</a>
+			<ul>
+				<li><%=link_to 'Articles', {:controller=>'admin/item',:action=>'index'}%></li>
+				<li><%=link_to 'Fournisseurs', {:controller=>'admin/provider',:action=>'index'}%></li>
+			</ul>
+		</li>
+		<li><a>Utilisateurs &raquo;</a>
+			<ul>
+				<li><%=link_to 'Départements', {:controller=>'admin/department',:action=>'index'}%></li>
+				<li><%=link_to 'Agents', {:controller=>'admin/customer',:action=>'index'}%></li>
+				<li><%=link_to 'Roles', {:controller=>'admin/role',:action=>'list'}%></li>
+				<li><%=link_to 'Utilisateurs', {:controller=>'/users',:action=>'list'}%></li>
+			</ul>
+		</li>
+		<li><a>Opérations &raquo;</a>
+			<ul>
+				<li><%=link_to 'Livraisons', {:controller=>'operation/delivery',:action=>'index'}%></li>
+				<li><%=link_to 'Reserver', {:controller=>'/bookings',:action=>'index'}%></li>
+				<li><%=link_to 'Retraits', {:controller=>'operation/order',:action=>'index'}%></li>
+			</ul>
+		</li>
+		<li><a>Alertes &raquo;</a>
+			<ul>
+				<li><a><%=link_to "Stocks épuisés (#{Item.where("stock<6").count})", {:controller=>'admin/item',:action=>'alert'}%></a></li>
+				<li><a><%=link_to "Utilisateurs (#{User.where(customer_id:nil).count})",{:controller=>'/users',:action=>'grant'}%> </a></li>
+				<li><a><%=link_to "Résérvations (#{Booking.count})",{:controller=>'/bookings',:action=>:list}%></a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+	
+
+	<div id="content">
+		<%= yield -%>
+		
+	</div>
+	
+
+
+	<div id="sidebar"></div>
+			
+		
+	</div>
+	
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<h3>Liste des Résérvations</h3>
+<table>
+	<thead>
+		<tr>
+			
+			<td><b>Nom</b></td>
+			<td><b>Article</b></td>
+			<td><b>Quantité</b></td>
+			<td><b>Date</b></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%if @books.nil?%>
+		<tr>
+			<td>
+				<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
+		<%else%>
+		<%@books.each do |book|%>
+			</td>
+			
+		</tr>
+		
+		<tr>
+			
+			<td><%=book.customer.names%></td>
+			<td><%=book.item.name%></td>
+			<td><%=book.quantity%></td>
+			<td><%=link_to 'Annuler',{:action=>'delete',:id=>book.id}%></td>
+	
+		</tr>
+		<%end%>
+			
+<td><%=button_to 'Vider panier', :action=>'clear'%></td>
+		<%end%>
+		
+	</tbody>
+</table>

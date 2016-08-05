@@ -1,0 +1,16 @@
+Informations de <%=@customer.names%>
+
+<table>
+	<tr>
+		<td>Noms : </td><td><b><%=@customer.names%></td></b>
+	</tr>
+	<tr>
+		<td>Téléphone : </td><td><b><%=@customer.telephone%></td></b>
+	</tr>
+	<tr>
+		<td>E-mail :</td><td><b><%=@customer.email%></td></b>
+	</tr>
+</table>
+
+<p><%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Modifier', :action=>'edit',:id=>@customer %></p>

@@ -1,0 +1,25 @@
+<h3>Catalogue des articles</h3>
+<%=form_tag :action=>'create' do%>
+<table>
+	<th>
+		<tr>
+			<td>Articles</td>
+			<td>Quantité</td>
+			
+		</tr>
+	</th>
+	<tbody>
+	<tr>
+		<td>
+			<%=collection_select(:booking, :item_id, @items, :id, :name, prompt: true)%></td>
+	
+		<td><%=text_field 'booking','quantity'%></td>
+		<td><%=hidden_field 'booking','customer_id', :value=>@customer.id%></td>
+		<td><%=submit_tag 'Reserver'%></td>	
+	</tr>
+		
+		<%end%>
+	</tbody>
+</table>
+
+
