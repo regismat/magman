@@ -20,4 +20,46 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+        attributes:
+          user:
+            username: Nom d'utilisateur
+            password: Mot de passe
+          booking:
+            item_id: Article
+            quantity: Quantité
+          customer:
+            item_id: Article
+            department_id: Département
+            names: Noms
+            telephone: Numéro de téléphone
+            email: E-mail
+          delivery:
+            item_id: Article
+            quantity: Quantité
+            price: Prix
+            provider_id: Fournisseur
+            customer_id: Acheteur
+            reference: Référence
+            date: Date
+          department:
+            description: Nom
+          item:
+            name: Nom
+            detail: Détails
+            unit: Unité
+          order:
+            item_id: Article
+            quantity: Quantité
+            shipper: Expéditeur
+            customer_id: Acheteur
+            date: Date
+          provider:
+            names: Noms
+            telephone: Téléphone
+            email: E-mail
+            town: Ville
+          role:
+            title: Titre
+            description: Description du droit d'accès
+            

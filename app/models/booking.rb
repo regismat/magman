@@ -4,7 +4,8 @@ class Booking < ActiveRecord::Base
   belongs_to :item, inverse_of: :bookings
   
   
-  validates_presence_of :item_id
-  validates_presence_of :customer_id
-  validates_presence_of :quantity
+  validates :item_id, presence:{message:" non sélectionné"}
+  validates :quantity, presence:{message:" ne peut être nul ni vide"},
+                       numericality:{message:" ne supporte que des nombres"}           
 end
+

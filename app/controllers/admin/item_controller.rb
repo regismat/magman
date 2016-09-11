@@ -1,11 +1,12 @@
 class Admin::ItemController < ApplicationController
   layout 'standard'
+  before_filter :authorize, :admin_authorize
   def index
-    @items = Item.all
+    @items = Item.paginate(:page => params[:page], :per_page => 10).order(:name)
   end
   
   def alert
-     @items = Item.all
+     @items = Item.all.order(:name)
   end
   
   def new
@@ -40,6 +41,8 @@ class Admin::ItemController < ApplicationController
     if @item.update_attributes(item_params)
       flash[:notice] = "Article mis à jour : #{@item.name}"
       redirect_to :action=>'index'
+    else
+      render :action=>"edit"
     end
   end
 

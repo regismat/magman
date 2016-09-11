@@ -1,9 +1,9 @@
-<h3>Compte utilisateur : <i><%=@user.username%></i></h3>
+<h2>Compte d'utilisateur: <%=@user.username%></h2>
 
 <%= form_for @user, :url=>{:action=>'access_update', :id=>@user} do |user|%>
   <% if @user.errors.any? %>
     <div class="error_messages">
-      <h2>Formulaire invalide</h2>
+      <h3>Formulaire invalide</h3>
       <ul>
         <% for message in @user.errors.full_messages %>
           <li><%= message %></li>
@@ -11,14 +11,16 @@
       </ul>
     </div>
   <% end %>
-  <p>
-    <label for='proprietaire' >Propriétaire:
-<%=collection_select(:user, :customer_id, @customers, :id, :names)%>
-  </p>
-    <label for='acces' >Droit d'accès:
-<%=collection_select(:user, :role_id, @roles, :id, :title)%>
-  </p> 
-  
-  <p class="button"><%=submit_tag "Enregistrer"%></p>
-<% end %>
-<p><%=link_to 'Retour', :action=>:list%></p>
+	<table>
+		  <tr>
+		  	<td><label for='proprietaire' >Propriétaire</td><td><%=collection_select(:user, :customer_id, @customers, :id, :names, include_blank:"Selectionner l'agent proprio")%></td>
+  		  </tr>  
+  		  <tr>
+  		  	<td><label for='acces' >Droit d'accès</td><td><%=collection_select(:user, :role_id, @roles, :id, :title, include_blank:"Selectionner un niveau d'accès")%></td>
+  		  </tr>
+  		  <tr>
+  		  	<td></td><td><%=submit_tag "Enregistrer",class:'link'%></td>
+  		  </tr>
+	<% end %>
+	</table>
+<%=link_to 'Retour', users_list_path(),class:'link'%>

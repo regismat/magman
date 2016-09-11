@@ -1,25 +1,36 @@
-<h1>Nouvel agent</h1>
+<h2>Nouvel agent</h2>
 <%=form_tag :action=>'create' do%>
-
+<% if @customer.errors.any? %>
+    <div class="error_messages">
+      <h3><%=pluralize(@customer.errors.size, " erreur")%>, enregistrement echoué</h3>
+      <ul>
+        <% for message in @customer.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <table>
 	<tr>
-		<td><label for="customer_names">Noms :</label></td><td><%=text_field 'customer','names'%></td>
+		<td><label for="customer_names">Noms</label></td><td><%=text_field 'customer','names',:placeholder=>"Ex: Kamate Katsongo D."%></td>
 	</tr>
 	
 	<tr>
-		<td><label for="customer_service">Service :</label></td>
-		<td><%= collection_select(:customer, :department_id, @departments, :id, :description)%></td>
+		<td><label for="customer_service">Service </label></td>
+		<td><%= collection_select(:customer, :department_id, @departments, :id, :description, include_blank:"Selectionner département")%></td>
 	</tr>
 	
 	<tr>
-		<td><label for="customer_telephone">Téléphone :</label></td><td><%=text_field 'customer','telephone'%></td>
+		<td><label for="customer_telephone">Téléphone</label></td>
+		<td><%=text_field 'customer','telephone',:placeholder=>"Ex: +243997843660"%></td>
 	</tr>
 	<tr>
-		<td><label for="customer_email">E-mail :</label></td><td><%=text_field 'customer','email'%></td>
+		<td><label for="customer_email">E-mail</label></td>
+		<td><%=text_field 'customer','email',:placeholder=>"Ex: exemple@gmail.com"%></td>
 	</tr>
 	<tr>
-		<td><%=submit_tag "Ajouter"%></td>
+		<td></td><td><%=submit_tag "Ajouter",class:'link'%></td>
 	</tr>
 </table>
 <%end%>
-<%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Retour', admin_customer_index_path(),class:'link'%>

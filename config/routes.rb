@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/bookings/delete'
   post '/bookings/create'
   get '/bookings/alert'
+  get '/bookings/order'
+  patch '/bookings/validate'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'signup', to: 'users#new', as: 'signup'
@@ -58,6 +60,11 @@ Rails.application.routes.draw do
 
   namespace :operation do
   get 'order/index'
+  get 'delivery/check'
+  get 'order/check'
+  get 'order/order_delivery_report'
+  get 'order/order_delivery_report2'
+  get 'order/signature'
   end
 
   namespace :operation do

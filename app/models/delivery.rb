@@ -4,12 +4,25 @@ class Delivery < ActiveRecord::Base
   belongs_to :provider
   belongs_to :customer
  
-  validates_presence_of :date
-  validates_presence_of :quantity
-  validates_presence_of :price
-  validates_presence_of :item_id
-  validates_presence_of :provider_id
-  validates_presence_of :customer_id
-  validates_presence_of :reference
+  validates :item_id, presence:{message:" non sélectionné"}
+  validates :quantity, presence:{message:" ne peut être nul ni vide"},
+                       numericality:{message:" ne supporte que des nombres"}
+  validates :price, presence:{message:" ne peut être nul ni vide"},
+                       numericality:{message:" ne supporte que des nombres"}
+  validates :provider_id, presence:{message:" non sélectionné"}
+  validates :customer_id, presence:{message:" non sélectionné"}
+  validates :reference, presence:{message:" ne peut être vide"}
+  validates :date,presence:{message:" non sélectionné"}
   
+  
+  
+  
+  def self.to_csv(options={})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |deliver|
+        csv << deliver.attributes.values_at(*column_names)
+      end
+    end
+  end
 end

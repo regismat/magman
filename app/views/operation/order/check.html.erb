@@ -1,0 +1,78 @@
+<%=form_tag operation_order_check_path, method: :get do%>
+<table>
+	<th>
+		<tr><td></td> </tr>
+		<tr>
+			<td></td>
+			<td></td>
+			
+		</tr>
+	</th>
+	<tbody>
+	<tr>
+		<td>
+			<%= select_tag :item_id, options_for_select(Item.all.map{|c| [c.name, c.id]}) %>
+			
+		</td>
+		<td>
+			Du <%= date_field_tag :debut,params[:debut]%>
+		</td>
+		<td>
+			au <%= date_field_tag :fin,params[:fin]%> 
+		</td>
+		<td> <%=submit_tag 'Chercher', :name=>nil, class:'link'%></td>	
+	</tr>
+		
+		
+	</tbody>
+</table>
+<%end%>
+
+<h2>Rapport de retraits: <%=@article%></h2>
+<h2><%="#{@orders.count} #{"résultat".pluralize(@orders.count)}"%></h2>
+<table>
+	<thead>
+		<tr>
+			<td><strong>Article</strong></td>
+			<td><strong>Quantité</strong></td>
+			<td><strong>Demandeur</strong></td>
+			<td><strong>Date</strong></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@orders.each do |ord|%>		
+		<tr>
+			
+			<td><%= ord.item.name%></td>
+			<%if params[:item_id]%>
+			<td><%= "#{ord.quantity} #{Item.find(params[:item_id]).unit.pluralize(ord.quantity)}"%></td>
+			<%else%>
+			<td></td>
+			<%end%>
+			<td><%= ord.customer.names%></td>
+			<td><%= ord.date%></td>	
+			<td><%=link_to 'Modifier',operation_order_edit_path(:id=>ord.id), class:'editButton'%>
+				<%=link_to 'Supprimer',operation_order_delete_path(:id=>ord.id),class:'deleteButton'%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+<table>
+	<tbody>
+		<tr>
+			<td><b>Total:</b></td>
+			<%if params[:item_id]%>
+			<td><b><u><%= "#{@qte} #{Item.find(params[:item_id]).unit.pluralize(@qte)}"%></u></b></td>
+			<%else%>
+			<td></td>
+			<%end%>
+	</tr>
+	</tbody>
+	
+</table>
+<%=will_paginate @orders%>
+<%=link_to "Importer vers Excel",operation_order_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "xls"), class:'link'%>
+<%=link_to 'Imprimer PDF', operation_order_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "pdf"), class:'link'%>
+<%=link_to 'Retraits effectués', operation_order_index_path(), class:'link'%>
+<%=link_to 'Nouveau', operation_order_new_path(),class:'newButton'%>

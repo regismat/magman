@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="RapportRetraitsArticles">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Article</Data></Cell>
+        <Cell><Data ss:Type="String">Quantité</Data></Cell>
+        <Cell><Data ss:Type="String">Demandeur</Data></Cell>
+      	<Cell><Data ss:Type="String">Expediteur</Data></Cell>
+        <Cell><Data ss:Type="String">Statut</Data></Cell>
+      </Row>
+    <% @orders_xls.each do |order| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= order.date %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= order.item.name %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= order.quantity %></Data></Cell>
+        
+		<Cell><Data ss:Type="String"><%= Customer.find(order.customer_id).names %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Customer.find(order.shipper).names %></Data></Cell>
+           
+      <%if order.status==1%>
+		<Cell><Data ss:Type="String">Livré</Data></Cell>    
+				<%else%>
+		<Cell><Data ss:Type="String">En cours</Data></Cell> 		
+				<%end%>
+      
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

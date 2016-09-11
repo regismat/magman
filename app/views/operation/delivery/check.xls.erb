@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="RapportRetraitsArticles">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+        <Cell><Data ss:Type="String">Article</Data></Cell>
+        <Cell><Data ss:Type="String">Quantité</Data></Cell>
+        <Cell><Data ss:Type="String">Fournisseur</Data></Cell>
+      	<Cell><Data ss:Type="String">Acheteur</Data></Cell>
+      </Row>
+    <% @deliveries_xls.each do |deliver| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= deliver.date %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= deliver.item.name %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= deliver.quantity %></Data></Cell>
+		<Cell><Data ss:Type="String"><%= deliver.provider.names%></Data></Cell>
+        <Cell><Data ss:Type="String"><%= deliver.customer.names%></Data></Cell>
+       
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

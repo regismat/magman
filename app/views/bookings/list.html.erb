@@ -1,12 +1,11 @@
-<h3>Liste des Résérvations</h3>
+<h2>Liste des résérvations</h2>
 <table>
 	<thead>
 		<tr>
-			
-			<td><b>Nom</b></td>
-			<td><b>Article</b></td>
-			<td><b>Quantité</b></td>
-			<td><b>Date</b></td>
+			<td>Nom</td>
+			<td>Article</td>
+			<td>Quantité</td>
+			<td>Opérations</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,21 +16,17 @@
 		<%else%>
 		<%@books.each do |book|%>
 			</td>
-			
 		</tr>
 		
-		<tr>
-			
+		<tr>			
 			<td><%=book.customer.names%></td>
 			<td><%=book.item.name%></td>
-			<td><%=book.quantity%></td>
-			<td><%=link_to 'Annuler',{:action=>'delete',:id=>book.id}%></td>
-	
+			<td><%="#{book.quantity} #{book.item.unit.pluralize(book.quantity)}"%></td>
+			<td><%=link_to 'Annuler',bookings_list_path(:id=>book.id), class:'deleteButton'%><%=link_to 'servir article',bookings_order_path(:id=>book.id), class:'link'%></td>
 		</tr>
 		<%end%>
-			
-<td><%=button_to 'Vider panier', :action=>'clear'%></td>
 		<%end%>
 		
 	</tbody>
 </table>
+<%=will_paginate @books, class:'newButton'%>

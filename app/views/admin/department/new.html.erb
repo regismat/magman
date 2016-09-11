@@ -1,6 +1,22 @@
-<h3>Ajout d'un nouveau département</h3>
+<h2>Nouveau département ou service</h2>
 <%=form_tag :action=>'create' do%>
-<p><label for="Dep_description">Nom du département ou service<%=text_field 'department','description'%></p>
-<%=submit_tag 'Enregistrer'%>
+<% if @department.errors.any? %>
+    <div class="error_messages">
+      <h3><%=pluralize(@department.errors.size, " erreur")%>, enregistrement echoué</h3>
+      <ul>
+        <% for message in @department.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+	<tr>
+		<td><label for="Dep_description">Nom</td><td><%=text_field 'department','description',:placeholder=>"Ex: Finance"%></td>
+	</tr>
+	<tr>
+		<td><td><%=submit_tag 'Enregistrer', class:'link'%></td>
+	</tr>
+</table>
 <%end%>
-<%=link_to 'Retour', {:action=>'index'}%>
+<%=link_to 'Retour', admin_department_index_path(),class:'link'%>

@@ -1,7 +1,22 @@
-<h2>Modification du département: <%=@department.description%> </h3>
-
+<h2>Modification du département: <%=@department.description%> </h2>
 <%= form_for @department, :url => {:action=>'update', :id=>@department} do |dep|%>
-<p>Nom du département: <%=dep.text_field 'description'%></p>
-<%=dep.submit "Enregistrer modifications"%>
+<% if @department.errors.any? %>
+    <div class="error_messages">
+      <h3><%=pluralize(@department.errors.size, " erreur")%>, enregistrement echoué</h3>
+      <ul>
+        <% for message in @department.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<table>
+	<tr>
+		<td><label for="Dep_description">Nom du département/service</td><td><%=text_field 'department','description'%></td>
+	</tr>
+	<tr>
+		<td></td><td><%=submit_tag 'Enregistrer', class:'link'%></td>
+	</tr>
+</table>
 <%end%>
-<%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Retour', admin_department_index_path(),class:'link'%>

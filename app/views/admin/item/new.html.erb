@@ -1,25 +1,31 @@
-<h3>Nouvel article</h3>
+<h2>Nouvel article</h2>
 <%= form_tag :action=>'create' do%>
-
+<% if @item.errors.any? %>
+    <div class="error_messages">
+      <h3><%=pluralize(@item.errors.size, " erreur")%>, enregistrement echoué</h3>
+      <ul>
+        <% for message in @item.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <table>
 	<tr>
-		<td><label for="item_name">Noms</label></td><td>: <%=text_field 'item','name'%></td>
+		<td><label for="item_name">Noms</label></td><td><%=text_field 'item','name',:placeholder=>"Ex: stylo noir"%></td>
 	</tr>
 	
 	<tr>
 		<td><label for="item_detail">Description</label></td>
-		<td>: <%=text_field 'item', 'detail'%></td>
+		<td><%=text_field 'item', 'detail', :placeholder=>"Ex: marque beiffa!"%></td>
 	</tr>
-	
+
 	<tr>
-		<td><label for="item_stock">Quantité en stock</label></td><td>: <%=text_field 'item','stock'%></td>
-	</tr>
-	<tr>
-		<td><label for="item_unit">Unité de mesure</label></td><td>: <%=text_field 'item','unit'%></td>
+		<td><label for="item_unit">Unité de mesure</label></td><td> <%=text_field 'item','unit',:placeholder=>"Ex: pièce/boîte"%></td>
 	</tr>
 	<tr>
-		<td><%=submit_tag "Ajouter"%></td>
+		<td></td><td><%=submit_tag "Ajouter", class:'link'%></td>
 	</tr>
 </table>
 <%end%>
-<%=link_to 'Retour', :action=>'index'%>
+<%=link_to 'Retour', admin_item_index_path(),class:'link'%>

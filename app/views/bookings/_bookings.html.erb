@@ -1,14 +1,15 @@
-<h3>VOS RESERVATIONS</h3>
+<h2>Articles en stock et réservation</h2>
 <table>
 	<thead>
 		<tr>
 			
 			<td><b>Nom</b></td>
 			<td><b>Quantité</b></td>
+			<td>Opération</td>
 		</tr>
 	</thead>
 	<tbody>
-		<%if @reserves.nil?%>
+	<%if @reserves.nil?%>
 		<tr>
 			<td>
 				<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
@@ -22,14 +23,14 @@
 			
 			
 			<td><%=rez.item.name%></td>
-			<td><%=rez.quantity%></td>
-			<td><%=link_to 'Annuler',{:action=>'delete',:id=>rez.id}%></td>
+			<td><%="#{rez.quantity} #{rez.item.unit.pluralize(rez.quantity)}"%></td>
+			<td><%=link_to 'Annuler',bookings_delete_path(:id=>rez.id), class:'deleteButton'%></td>
 	
 		</tr>
 		<%end%>
 			
-<td><%=button_to 'Vider panier', :action=>'clear'%></td>
-		<%end%>
+	<%end%>
 		
 	</tbody>
 </table>
+<br />

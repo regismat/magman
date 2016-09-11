@@ -1,0 +1,20 @@
+<h2>Retrait de la reservation: <%=@book.customer.names%></h2>
+
+	<table>
+	<%=form_for @book, :url=>{:action=>'validate', :id=>@book.id} do%>		
+		<tbody>
+			<tr><td>Article</td><td>: <%=Item.find(@book.item_id).name%></td></tr>
+			<%=hidden_field 'order','item_id', :value=>@book.item_id%>
+			<tr><td>Quantité</td> <td>: <%=@book.quantity%></td></tr>
+			<%=hidden_field 'order','quantity', :value=>@book.quantity%>
+			<tr><td>Demandeur</td><td>: <%=Customer.find(@book.customer_id).names%></td></tr>
+			<%=hidden_field 'order','customer_id', :value=>@book.customer_id%>
+			<tr><td>Expediteur</td><td><%=collection_select(:order,:shipper,@customers,:id,:names, include_blank:'Selectionner expediteur')%></td></tr>
+			<tr><td>Date</td><td><%= date_select 'order','date'%></td>
+	</tr>
+			<tr><td></td><td><%=submit_tag 'Servir article', class:'link'%></td></tr>
+		
+		</tbody>
+	</table>
+<%end%>
+<%=link_to 'Voir toutes les réservations', bookings_list_path(),class:'link'%>

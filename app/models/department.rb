@@ -1,4 +1,6 @@
 class Department < ActiveRecord::Base
   has_many :customers
-  validates_presence_of :description, :message=>'Error message'
+  validates :description, presence:{message:" ne peut être vide"},
+                          uniqueness:{message:" existe déjà"}
+            
 end

@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   layout 'standard'
-  
+  before_action :authorize, :admin_authorize
+  skip_before_action :authorize,:admin_authorize, only: [:new,:create]
   def list
-    @users = User.all
+    @users = User.paginate(:page=>params[:page],:per_page=>10).order(:username)
     
   end
   def show
@@ -63,8 +64,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id]=@user.id
-      flash[:notice] = "Identification réussi!"
-      redirect_to :controller=>:sessions, :action=>:new
+      flash[:notice] = "Identification réussie! Veillez contacter le magasinier pour finaliser."
+      redirect_to '/login'
     else
       flash[:notice] = "Message d'erreur: Veillez reprendre le processus."
       

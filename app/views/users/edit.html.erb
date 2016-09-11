@@ -1,8 +1,8 @@
-<h3>Compte utilisateur : Modification</h3>
+<h2>Compte d'utilisateur : <%=@user.username%></h2>
 <%= form_for @user, :url=>{:action=>'update', :id=>@user} do |user|%>
-  <% if @user.errors.any? %>
+<% if @user.errors.any? %>
     <div class="error_messages">
-      <h2>Formulaire invalide</h2>
+      <h3><%=pluralize(@user.errors.size, " erreur")%>, enregistrement echoué</h3>
       <ul>
         <% for message in @user.errors.full_messages %>
           <li><%= message %></li>
@@ -10,22 +10,21 @@
       </ul>
     </div>
   <% end %>
-  <p>
-    <label for='username' >Username<br />
-    <%=text_field 'user','username'%>
-  </p>
+  <table>
+  	<tr>
+  		<td><label for='username'>Nom d'utilisateur</td><td><%=text_field 'user','username'%></td>  		
+  	</tr>
+  	<tr>
+  		<td><label for='password'>Mot de passe</td><td><%=password_field 'user','password'%></td>
+  	</tr>
+  	<tr>
+  		<td><label for='password_confimation'>Confirmer mot de passe</td><td> <%=password_field 'user','password_confirmation'%></td>
+  	</tr>
+  	<tr>
+  		<td></td><td><%=submit_tag "Enregistrer",class:'link'%></td>
+  	</tr>
+  </table>
   
-  <p>
-    <label for='password' >Password<br />
-    <%=password_field 'user','password'%>
-    
-  </p>
-  
-  <p>
-  	<label for='password_confimation' >Confirm password<br />
-    <%=password_field 'user','password_confirmation'%>
-  </p>
-  
-  <p class="button"><%=submit_tag "Submit"%></p>
+ 
 <% end %>
-<p><%=link_to 'Retour', :action=>:list%></p>
+<%=link_to "Liste d'utilisateurs", users_list_path(),class:'link'%>

@@ -26,6 +26,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+gem 'receipts'
+
+gem 'prawn'
+
+gem 'will_paginate'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

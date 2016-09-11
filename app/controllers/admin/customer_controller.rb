@@ -1,9 +1,10 @@
 class Admin::CustomerController < ApplicationController
   layout 'standard'
+  before_action :authorize, :admin_authorize
+  skip_before_action :admin_authorize, only: [:show,:edit,:update]
   def index
-   
     @departments = Department.all
-    @customers = Customer.all
+    @customers = Customer.paginate(:page=>params[:page], :per_page =>10).order(:names)
   end
   
   def show
@@ -22,8 +23,10 @@ class Admin::CustomerController < ApplicationController
     if @customer.save
       flash[:notice] = "#{@customer.names} a été ajouté dans la base des données"
       redirect_to :action=>'index'
+      flash[:notice] = "#{@customer.names} a été ajouté dans la base des données"
     else
       flash[:notice] = "Veillez remplir les champs vides avant de continuer."
+     # redirect_to :action=>'new'
       render :action=>'new'
     end
   end
@@ -37,8 +40,14 @@ class Admin::CustomerController < ApplicationController
     @departments = Department.all
     @customer = Customer.find(params[:id])
     if @customer.update_attributes(cust_params)
-      flash[:notice] = "Les informations de #{@customer.names} ont été modifiées dans la base des données"
-      redirect_to :action=>'index'
+      if current_user.role.title=='Magasinier'
+        flash[:notice] = "Les informations de #{@customer.names} ont été mises à jour"
+        redirect_to :action=>'index'
+      else
+        flash[:notice] = "Les informations de #{@customer.names} ont été mises à jour"
+        redirect_to admin_customer_show_path(:id=>@customer.id) 
+      end
+      
     else
       flash[:notice] = "Veillez remplir les champs vides avant de continuer."
       render :action=>'edit'

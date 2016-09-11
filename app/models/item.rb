@@ -9,9 +9,9 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :deliveries, :orders
   
-  
-  validates_presence_of :name
-  validates_presence_of :detail
-  validates_presence_of :stock
-  
+  validates :name, presence:{message:" ne peut être vide"},
+                   uniqueness:{message:" existe déjà"}
+  validates :detail, presence:{message:" ne peut être vide"}
+  validates :stock, presence:{message:" ne peut être vide"}
+  validates :unit, presence:{message:" ne peut être vide"}
 end

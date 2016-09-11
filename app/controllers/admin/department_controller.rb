@@ -1,7 +1,8 @@
 class Admin::DepartmentController < ApplicationController
   layout 'standard'
+  before_filter :authorize, :admin_authorize
   def index
-    @department = Department.all
+    @department = Department.paginate(:page=>params[:page],:per_page=>10).order(:description)
   end
 
   def show

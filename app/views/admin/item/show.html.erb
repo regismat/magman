@@ -1,4 +1,4 @@
-<h3>Détails de l'article : <i><%=@item.name%></i></h3>  
+<h2>Article : <%=@item.name%></h2>  
 
 <table>
 	<tr>
@@ -15,5 +15,5 @@
 	</tr>
 </table>
 
-<p><%=link_to 'Retour', :action=>'index'%>
-<%=link_to 'Modifier', :action=>'edit',:id=>@item %></p>
+<p><%=link_to 'Retour', admin_item_index_path(), class:'link'%>
+<%=link_to 'Modifier', admin_item_edit_path(:id=>@item), class:'editButton' %></p>

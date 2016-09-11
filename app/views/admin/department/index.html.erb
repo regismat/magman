@@ -1,20 +1,21 @@
-<h3>Départements et services</h3>
-
+<h2>Départements et services</h2>
 
 <table>
 	<thead>
 		<tr>
-			<td><strong>Nom du service</strong></td>
-			<td><strong>Opérations</strong></td>
+			<td>Nom du service</td>
+			<td>Opérations</td>
 		</tr>
 	</thead>
 	<tbody>
 <%@department.each do |dep|%>		
 		<tr>
 			<td><%=dep.description%></td>
-			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>dep.id}%>|<%=link_to 'Supprimer',{:action=>'delete',:id=>dep.id}%></td>
+			<td><%=link_to 'Modifier',admin_department_edit_path(:id=>dep.id),class:'editButton'%>
+				<%=link_to 'Supprimer',admin_department_delete_path(:id=>dep.id),class:'deleteButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Ajouter', :action=>'new'%>
+<%=will_paginate @departments, class:'newButton'%>
+<%=link_to 'Nouveau', admin_department_new_path(), class:'newButton'%>

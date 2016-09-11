@@ -10,8 +10,6 @@ class SessionsController < ApplicationController
   end
   
   def create 
-    
-    #user = user.find_by username:'regis'
     user = User.find_by_username(params[:username])
    
       if user && user.authenticate(params[:password]) 
@@ -22,7 +20,7 @@ class SessionsController < ApplicationController
            flash[:notice] = 'Connexion réussie! Bienvenue!'
            
          else
-          flash[:notice] ="Veiller contacter le magasinier!"
+          flash[:notice] ="Veillez contacter le magasinier pour l'activation de votre compte!"
            render "new"
          end  
          

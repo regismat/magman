@@ -1,0 +1,85 @@
+<%=form_tag operation_delivery_check_path, method: :get do%>
+
+<table>	
+	<tbody>
+	<tr>
+			<td>Article</td>
+	</tr>
+	
+	<tr>
+		<td><%= select_tag :item_id, options_for_select(Item.all.map{|c| [c.name, c.id]}) %></td>	
+		<td>Du <%= date_field_tag :debut,params[:debut]%></td>
+		<td>au <%= date_field_tag :fin,params[:fin]%></td>
+		<td><%=submit_tag 'Chercher', :name=>nil,class:'link'%></td>	
+	</tr>
+		
+		
+	</tbody>
+</table>
+<%end%>
+
+<h2>Rapport de ravitaillement: <%=@article%></h2>
+<h2><%="#{@deliveries.count} #{"résultat".pluralize(@deliveries.count)}"%></h2>
+<table>
+	<thead>
+		<tr>
+			<td><strong>Article</strong></td>
+			<td><strong>Qté</strong></td>
+			<td><strong>P.unitaire</strong></td>
+			<td><strong>P.total</strong></td>
+			<td><strong>Fournisseur</strong></td>
+			<td><strong>Acheteur</strong></td>
+			<td><strong>Référence</strong></td>
+			<td><strong>Date</strong></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%if @deliveries.nil?%>
+		<%flash[:notice]='pas de ravitaillement enregistré.'%>
+		<%else%>
+		<%@deliveries.each do |deliv|%>		
+		<tr>
+			
+			<td><%= deliv.item.name%></td>
+			<td><%= pluralize(deliv.quantity,deliv.item.unit)%></td>
+			<td><%= number_to_currency(deliv.price)%></td>
+			<td><%= number_to_currency(deliv.price*deliv.quantity)%></td>
+			<td><%= deliv.provider.names %></td>
+			<td><%= deliv.customer.names%></td>
+			<td><%= deliv.reference%></td>
+			<td><%= deliv.date%></td>
+			<td><%=link_to 'Modifier',operation_delivery_edit_path(:id=>deliv.id), class:'editButton' %><%=link_to 'Supprimer',operation_delivery_delete_path(:id=>deliv.id), class:'deleteButton'%></td>
+		<%end%>
+		<%end%>
+		
+		
+		</tr>
+		
+	</tbody>
+</table>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Quantité-total |</strong></td>
+			<td><strong>Coût-total</strong></td>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<%if params[:item_id]%>
+			<td><b><u><%= "#{@qte} #{Item.find(params[:item_id]).unit.pluralize(@qte)}"%></u></b></td>
+			<%else%>
+			<td></td>
+			<%end%>
+			<td><b><u><%= number_to_currency(@quantity)%></u></b></td>
+	</tr>
+	</tbody>
+	
+</table>
+<%=will_paginate @deliveries, class:'newButton'%>
+<%=link_to 'Importer vers Excel', operation_delivery_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "xls"),class:'link'%>
+<%=link_to 'Imprimer PDF', operation_delivery_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "pdf"),class:'link'%>
+<%=link_to 'Livraisons effectuées', operation_delivery_index_path(),class:'link'%>
+<%=link_to 'Nouveau', operation_delivery_new_path(), class:'newButton'%>

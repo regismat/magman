@@ -1,17 +1,18 @@
-<h3>Ravitaillement du magasin</h3>
+<h2>Ravitaillement du magasin </h2>
+<h2><%="#{@deliveries.count} #{"résultat".pluralize(@deliveries.count)}"%></h2>
 
 <table>
 	<thead>
 		<tr>
-			<td><strong>Article</strong></td>
-			<td><strong>Qté</strong></td>
-			<td><strong>P.unitaire</strong></td>
-			<td><strong>P.total</strong></td>
-			<td><strong>Fournisseur</strong></td>
-			<td><strong>Acheteur</strong></td>
-			<td><strong>Référence</strong></td>
-			<td><strong>Date</strong></td>
-			<td><strong>Opérations</strong></td>
+			<td>Date</td>
+			<td>Article</td>
+			<td>Qté</td>
+			<td>P.unitaire</td>
+			<td>P.total</td>
+			<td>Fournisseur</td>
+			<td>Acheteur</td>
+			<td>Référence</td>
+			<td>Opérations</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,21 +21,27 @@
 		<%else%>
 		<%@deliveries.each do |deliv|%>		
 		<tr>
-			
+			<td><%= deliv.date%></td>
 			<td><%= deliv.item.name%></td>
-			<td><%= deliv.quantity%></td>
-			<td><%= deliv.price%></td>
-			<td><%= deliv.price*deliv.quantity%></td>
+			<td><%= "#{deliv.quantity} #{deliv.item.unit.pluralize(deliv.quantity)}"%></td>
+			<td><%= number_to_currency(deliv.price)%></td>
+			<td><%= number_to_currency(deliv.price*deliv.quantity)%></td>
 			<td><%= deliv.provider.names %></td>
 			<td><%=deliv.customer.names%></td>
 			<td><%=deliv.reference%></td>
-			<td><%= deliv.date%></td>
 			
-			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>deliv.id}%>|<%=link_to 'Supprimer',{:action=>'delete',:id=>deliv.id}%></td>
+			
+			<td><%=link_to 'Modifier',operation_delivery_edit_path(:id=>deliv.id), class:'editButton' %>
+				<%=link_to 'Supprimer',operation_delivery_delete_path(:id=>deliv.id), class:'deleteButton'%></td>
 		
 		</tr>
 		<%end%>
 		<%end%>
 	</tbody>
+	
 </table>
-<%=link_to 'Nouveau', :action=>'new'%>
+
+<%=will_paginate @deliveries, class:'newButton'%>
+<%=link_to "Importer vers Excel",operation_delivery_index_path(format: "xls"), class:'link'%>
+<%=link_to 'Rapports',operation_delivery_check_path(),class:'link'%>
+<%=link_to 'Nouveau', operation_delivery_new_path(), class:'newButton'%>

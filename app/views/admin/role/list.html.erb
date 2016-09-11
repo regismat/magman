@@ -1,10 +1,11 @@
-<h3>Droits d'accès:</h3>
+<h2>Droits d'accès</h2>
 
 <table>
 	<thead>
 		<tr>
 			<td>Nom</td>
 			<td>Description du droit d'accès</td>
+			<td>Operéation</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -12,9 +13,9 @@
 		<tr>
 			<td><%=r.title%></td>
 			<td><%=r.description%></td>
-			<td><%=link_to 'Modifier',{:action=>'edit',:id=>r.id}%></td>
+			<td><%=link_to 'Modifier',admin_role_edit_path(:id=>r.id),class:'editButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Ajouter', :action=>'new'%>
+<%=link_to 'Nouveau', admin_role_new_path(),class:'newButton'%>

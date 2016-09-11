@@ -1,10 +1,10 @@
-<h3>Liste des fournisseurs (entreprises et individus)</h3>
+<h2>Liste des fournisseurs (entreprises et individus)</h2>
 <table>
 	<thead>
 		<tr>
-			<td><strong>Etablissement</strong></td>
-			<td><strong>Ville</strong></td>
-			<td><strong>Opérations</strong></td>
+			<td>Etablissement</td>
+			<td>Ville</td>
+			<td>Opérations</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -13,10 +13,11 @@
 			
 			<td><%=link_to prov.names,{:action=>'show',:id=>prov.id}%></td>
 			<td><%= prov.town%></td>
-			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>prov.id}%>
-			|<%=link_to 'Supprimer',{:action=>'delete',:id=>prov.id}%></td>
+			<td><%=link_to 'Modifier',admin_provider_edit_path(:id=>prov.id), class:'editButton'%>
+				<%=link_to 'Supprimer',admin_provider_delete_path(:id=>prov.id), class:'deleteButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Nouveau', :action=>'new'%>
+<%=will_paginate @providers, class:'newButton'%>
+<%=link_to 'Nouveau', admin_provider_new_path(), class:'newButton'%>

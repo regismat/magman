@@ -1,10 +1,44 @@
 class Operation::DeliveryController < ApplicationController
-  
+  before_filter :authorize, :admin_authorize
   layout 'standard'
   
+  def check
+    load_data   
+    @deliveries_xls = Delivery.where(["item_id=:it AND date>= :debut AND date<=:fin",it: params[:item_id],debut: params[:debut],fin: params[:fin]]).order(date: :desc) 
+    @deliveries = Delivery.paginate(:page => params[:page], :per_page => 10).where(["item_id=:it AND date>= :debut AND date<=:fin",it: params[:item_id],debut: params[:debut],fin: params[:fin]]).order(date: :desc)
+    @quantity = @deliveries.sum("quantity*price")
+    @qte = @deliveries.sum("quantity")
+    if params[:item_id]
+       @article = Item.find(params[:item_id]).name
+      
+    end
+     
+      respond_to do |format|
+        format.csv { send_data @deliveries_xls.to_csv}
+        format.xls
+        format.html
+        format.pdf do 
+        pdf=DeliverPdf.new(@article,@deliveries_xls,@quantity,params[:debut],params[:fin],@qte)
+        send_data pdf.render, filename:"Magman_rapport_livraisons_#{Time.now}.pdf",
+                              type:"application/pdf",
+                              disposition: "inline"
+
+        end
+      end
+  end
+  
   def index
+    $pg_name = "Livraison"
     load_data
-    @deliveries = Delivery.all
+    @deliveries = Delivery.paginate(:page => params[:page], :per_page => 10).order(date: :desc).order(date: :desc)
+    @deliveries_xls = Delivery.all.order(date: :desc)
+   
+    respond_to do |format|
+      format.html
+      format.csv { send_data @deliveries_xls.to_csv}
+      format.xls
+    end
+  
   end
 
   def new
@@ -21,9 +55,10 @@ class Operation::DeliveryController < ApplicationController
   def create
     load_data
     @delivery = Delivery.new(deliv_params)
-    @stock = @delivery.item.stock+@delivery.quantity
-    @delivery.item.stock = @stock
-    
+    if params[:quantity]
+      @stock = @delivery.item.stock+@delivery.quantity
+      @delivery.item.stock = @stock
+    end
     if @delivery.save
       @delivery.item.update_attribute(:stock,@stock)
       flash[:notice] = "Opération effectuée avec succès!"

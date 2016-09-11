@@ -1,19 +1,30 @@
-<h1>Ajout de droit d'accès:</h1>
+<h2>Modifier droit d'accès: <%=@role.title%></h2>
 
 <%= form_for @role, :url => {:action=>'update', :id=>@role} do |r|%>
-
+<% if @role.errors.any? %>
+    <div class="error_messages">
+      <h3><%=pluralize(@role.errors.size, " erreur")%>, enregistrement echoué</h3>
+      <ul>
+        <% for message in @role.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <table>
 	<tr>
-		<td>Titre       :</td>
-		<td><%=r.text_field 'title'%></td>
+		<td>Titre</td>
+		<td><%=text_field 'role','title'%></td>
 	</tr>	
 	<tr>
-		<td>Description :</td>
-		<td><%=r.text_area 'description'%></td>
+		<td>Description</td>
+		<td><%=text_area 'role','description'%></td>
+	</tr>
+	<tr>
+		<td></td><td><%=submit_tag 'Mettre à jour',class:'link'%></td>
 	</tr>	
 </table>
 
-<%=r.submit 'Enregistrer modifications'%>
 <%end%>
-<%=link_to 'Retour', {:action=>'list'}%>
+<%=link_to 'Retour', admin_role_list_path(),class:'link'%>
 

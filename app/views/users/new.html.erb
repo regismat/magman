@@ -1,9 +1,9 @@
-<h1>Formulaire d'identification de l'utilisateur</h1>
+<h2>Identification</h2>
 
 <%= form_tag :action=>'create' do%>
   <% if @user.errors.any? %>
     <div class="error_messages">
-      <h2>Form is invalid</h2>
+      <h3><%=pluralize(@user.errors.size, " erreur")%>, enregistrement echoué</h3>
       <ul>
         <% for message in @user.errors.full_messages %>
           <li><%= message %></li>
@@ -11,18 +11,19 @@
       </ul>
     </div>
   <% end %>
-  <p>
-    <label for='username' >Username<br />
-    <%=text_field 'user','username'%>
-  </p>
-  <p>
-    <label for='password' >Password<br />
-    <%=password_field 'user','password'%>
-    
-  </p>
-  <p>
-  	<label for='password_confimation' >Confirm password<br />
-    <%=password_field 'user','password_confirmation'%>
-  </p>
-  <p class="button"><%=submit_tag "Submit"%></p>
+ 
+ <table>
+ 	<tr>
+ 		<td>Nom d'utilisateur</td><td><%=text_field 'user','username'%></td>
+ 	</tr>
+ 	<tr>
+ 		<td>Mot de passe</td><td><%=password_field 'user','password'%></td>
+ 	</tr>
+ 	<tr>
+ 		<td>Confirmation du mot de passe</td><td><%=password_field 'user','password_confirmation'%><td>
+ 	</tr>
+ 	<tr>
+ 		<td></td><td><%=submit_tag "S'identifier",class:'link'%></td>
+ 	</tr>
+ </table> 
 <% end %>

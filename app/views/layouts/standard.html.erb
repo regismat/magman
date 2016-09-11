@@ -1,44 +1,54 @@
 <html>
 <head>
-<meta charset="UTF-8">
-<title>MagMan</title>
+	<meta charset="UTF-8">
+	<title>MagMan</title>
   <%= stylesheet_link_tag "style" %>
 </head>
 <body id="library">
-	<div id="container">
+	
 	<div id="header">
-		<h1>MagMan</h1>
-		<small>Powered by RoR</small>
-		<h2><b></b></h2>
+		<h1 class = "title">MagMan</h1>
+		<small class = "title">Powered by Reg</small>
+		
 		<div id="user_nav">
   	<%if current_user%>
   	<%if current_user.customer%>
-  	Logged in as <%=current_user.customer.names%>.
-  		<%=link_to 'Log out', logout_path %>
+  		
+  		<%=link_to "Mon profil |",admin_customer_show_path(:id=>current_user.customer)%>
+  		<%=link_to 'Se deconnecter |', logout_path %>
+  		<a><strong><%=current_user.customer.names%></strong></a>
   		
   		<%else%>
-  		<%= link_to "Sign up", signup_path %> or
-    <%= link_to "Log in", login_path%>
+  		<%= link_to "Nouveau? Enregistrez-vous ici!", signup_path %> ou
+    	<%= link_to "Connectez-vous!", login_path%>
+    	
   		<%end%>
   		<%else%>
-    <%= link_to "Sign up", signup_path %> or
-    <%= link_to "Log in", login_path%>
+    <%= link_to "Nouveau? Enregistrez-vous ici!", signup_path %> ou
+    <%= link_to "Connectez-vous!", login_path%>
+  		
     <%end%>
-  <%if current_user%>
-  		<h2><b>
-</b></h2> 
-    <%end%>
-</div>
+   
+    </div>
+    <div id="container">
+    <br /> <div class=""><h1><%$pg_name%></h1></div>
 <% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<%if name=='notice'%>
+<%= content_tag :div, msg, :id => "notice" %>
+<%else%>
+<%= content_tag :div, msg, :id => "notice" %>
+<%end%>
+
+  
 <% end %>
-	</div>
-	<% if flash[:notice] %>
-	<div id="notice">
-		<strong><%= flash[:notice] %></strong>
-	</div>
-	<% end %>
-<nav id="nav">
+	
+</div>
+	
+
+
+	<%if current_user%>
+	<%if current_user.role_id==1%>
+	<nav id="nav">
 	<ul id="navigation">
 		<li><a>Articles &raquo;</a>
 			<ul>
@@ -51,42 +61,61 @@
 				<li><%=link_to 'Départements', {:controller=>'admin/department',:action=>'index'}%></li>
 				<li><%=link_to 'Agents', {:controller=>'admin/customer',:action=>'index'}%></li>
 				<li><%=link_to 'Roles', {:controller=>'admin/role',:action=>'list'}%></li>
-				<li><%=link_to 'Utilisateurs', {:controller=>'/users',:action=>'list'}%></li>
+				<li><%=link_to "Contrôle d'accès", {:controller=>'/users',:action=>'list'}%></li>
+			
+			
 			</ul>
 		</li>
 		<li><a>Opérations &raquo;</a>
 			<ul>
 				<li><%=link_to 'Livraisons', {:controller=>'operation/delivery',:action=>'index'}%></li>
+				<li><%=link_to 'Rapports de livraisons', {:controller=>'operation/delivery',:action=>'check'}%></li>
 				<li><%=link_to 'Reserver', {:controller=>'/bookings',:action=>'index'}%></li>
 				<li><%=link_to 'Retraits', {:controller=>'operation/order',:action=>'index'}%></li>
+				<li><%=link_to 'Rapports de retraits', {:controller=>'operation/order',:action=>'check'}%></li>
 			</ul>
 		</li>
 		<li><a>Alertes &raquo;</a>
 			<ul>
-				<li><a><%=link_to "Stocks épuisés (#{Item.where("stock<6").count})", {:controller=>'admin/item',:action=>'alert'}%></a></li>
-				<li><a><%=link_to "Utilisateurs (#{User.where(customer_id:nil).count})",{:controller=>'/users',:action=>'grant'}%> </a></li>
-				<li><a><%=link_to "Résérvations (#{Booking.count})",{:controller=>'/bookings',:action=>:list}%></a></li>
+				<li><a><%=link_to "Stock épuisé (#{Item.where("stock<6").count})", {:controller=>'admin/item',:action=>'alert'}%></a></li>
+				<li><a><%=link_to "Utilisateur (#{User.where(customer_id:nil).count})",{:controller=>'/users',:action=>'grant'}%> </a></li>
+				<li><a><%=link_to "Résérvation (#{Booking.count})",{:controller=>'/bookings',:action=>:list}%></a></li>
+				<li><a><%=link_to "Retrait non-signé (#{Order.where(status:nil).count})",{:controller=>'/operation/order',:action=>:order_delivery_report}%></a></li>
+				
 			</ul>
+			
 		</li>
+		
 	</ul>
 </nav>
+	<%else%>
+	 <%if current_user.role_id==2%>
+	 <nav id ="nav">
+		<ul id="navigation">
+			<li><%=link_to "Résérvations (#{Booking.where(["customer_id=:cust",cust: current_user.customer_id]).count})",{:controller=>'/bookings',:action=>:index}%></li>
+			<li><%=link_to "Retraits non-signés (#{Order.where(["status isNull AND customer_id=:cust",cust: current_user.customer_id]).count})",{:controller=>'/operation/order',:action=>:order_delivery_report2} %></li>
+			<li><%=link_to "Mon profil",admin_customer_show_path(:id=>current_user.customer)%></li>
+		</ul>	
+	</nav>
 	
+	<%end%>
+	<%end%>
+	
+	<%end%>
 
 	<div id="content">
 		<%= yield -%>
 		
 	</div>
 	
-
+<aside></aside>
 
 	<div id="sidebar"></div>
 			
 		
 	</div>
+	<footer>
 	
-
-
-
-
+	</footer>
 </body>
 </html>

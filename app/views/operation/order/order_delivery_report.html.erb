@@ -1,0 +1,42 @@
+<h2>Retraits sans confirmation de reception</h2>
+<h2><%="#{@orders.count} #{"résultat".pluralize(@orders.count)}"%></h2>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Date</strong></td>
+			<td><strong>Article</strong></td>
+			<td><strong>Quantité</strong></td>
+			<td><strong>Demandeur</strong></td>
+			
+			<td><b>Expediteur</b></td>
+			
+			<td><b>Statut</b></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@orders.each do |ord|%>		
+		<tr>
+			<td><%= ord.date%></td>
+			<td><%= ord.item.name%></td>
+			<td><%= ord.quantity%></td>
+			<td><%=Customer.find(ord.customer_id).names%></td>
+			<td><%=Customer.find(ord.shipper).names%></td>
+			<%if ord.status==1%>
+			<td>Livré</td>
+				<%else%>
+			<td>En cours</td>	
+				<%end%>
+			
+			<td><%=link_to 'Modifier',operation_order_edit_path(:id=>ord.id),class:'editButton'%>
+				<%=link_to 'Supprimer',operation_order_delete_path(:id=>ord.id),class:'deleteButton'%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+<%=will_paginate @orders, class:'newButton'%>
+<%=link_to 'Imprimer PDF', operation_order_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "pdf"), class:'link'%>
+<%=link_to 'Retraits effectués', operation_order_index_path(), class:'link'%>
+<%=link_to 'Nouveau', operation_order_new_path(), class:'newButton'%>

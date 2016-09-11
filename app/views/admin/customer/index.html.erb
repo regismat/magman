@@ -1,4 +1,4 @@
-<h3>Liste des agents</h3>
+<h2>Liste des agents</h2>
 
 <table>
 	<thead>
@@ -14,10 +14,11 @@
 			
 			<td><%=link_to cust.names,{:action=>'show',:id=>cust.id}%></td>
 			<td><%=link_to cust.department.description,{:controller=>'department',:action=>'index'}%></td>
-			<td><%=link_to 'Modifier',{:action=>'edit',:id=>cust.id}%></td>
-			<td><%=link_to 'Supprimer',{:action=>'delete',:id=>cust.id}%></td>
+			<td><%=link_to 'Modifier',admin_customer_edit_path(:id=>cust.id), class:'editButton'%>
+				<%=link_to 'Supprimer',admin_customer_delete_path(:id=>cust.id), class:'deleteButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Nouveau', :action=>'new'%>
+<%=will_paginate @customers, class:'newButton'%>
+<%=link_to 'Nouveau', admin_customer_new_path(), class:'newButton'%>

@@ -1,5 +1,6 @@
 class Admin::RoleController < ApplicationController
   layout 'standard'
+  before_filter :authorize, :admin_authorize
   def list
     @roles = Role.all
   end

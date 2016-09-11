@@ -1,28 +1,42 @@
-<h3>Sortie des articles du magasin </h3>
+<h2>Sortie des articles du magasin</h2> 
+<h2><%="#{@orders.count} #{"résultat".pluralize(@orders.count)}"%></h2>
 
 <table>
 	<thead>
 		<tr>
-			<td>Article</td>
-			<td>Quantité</td>
-			<td>Demandeur</td>
-			<td>Date</td>
-			
+			<td><b>Date</b></td>
+			<td><b>Article</b></td>
+			<td><b>Quantité</b></td>
+			<td><b>Demandeur</b></td>
+			<td><b>Expediteur</b></td>
+			<td><b>Statut</b></td>
+			<td><b>Opérations</b></td>
 		</tr>
 	</thead>
 	<tbody>
 		<%@orders.each do |ord|%>		
 		<tr>
-			
+			<td class><%= ord.date%></td>
 			<td><%= ord.item.name%></td>
-			<td><%= ord.quantity%></td>
-			<td><%= ord.customer.names%></td>
-			<td><%= ord.date%></td>
+			<td class><%= "#{ord.quantity} #{ord.item.unit.pluralize(ord.quantity)}"%></td>
+			<td><%=Customer.find(ord.customer_id).names%></td>
+			<td><%=Customer.find(ord.shipper).names%></td>
 			
-			<td><%=link_to 'Modifier',{:action=>'edit',:id=>ord.id}%></td>
-			<td><%=link_to 'Supprimer',{:action=>'delete',:id=>ord.id}%></td>
+			
+				<%if ord.status==1%>
+			<td>Livré</td>
+				<%else%>
+			<td>En cours</td>	
+				<%end%>
+			<td><%=link_to 'Modifier',operation_order_edit_path(:id=>ord.id), class:'editButton'%>
+				<%=link_to 'Supprimer',operation_order_delete_path(:id=>ord.id),class:'deleteButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Nouveau', :action=>'new'%>
+
+<%=will_paginate @orders, class:'newButton'%>
+
+<%=link_to "Importer vers Excel",operation_order_index_path(format: "xls"),class:'link'%>
+<%=link_to 'Rapports', operation_order_check_path(),class:'link'%>
+<%=link_to 'Nouveau', operation_order_new_path(), class:'newButton'%>

@@ -1,25 +1,26 @@
-<h3>Liste d'articles du magasin</h3>
+<h2>Liste d'articles</h2>
 
 <table>
 	<thead>
 		<tr>
-			<td><strong>Nom de l'article</strong></td>
-			<td><strong>Stock</strong></td>
-			<td><strong>Unité</strong></td>
-			<td> <strong>Opérations</strong></td>
+			<td>Nom de l'article</td>
+			<td>Stock</td>
+			<td>Unité</td>
+			<td>Opérations</td>
 		</tr>
 	</thead>
 	<tbody>
 		<%@items.each do |item|%>		
 		<tr>
 			
-			<td> <%=link_to item.name,{:action=>'show',:id=>item.id}%></td>
-			<td> <%= item.stock%></td>
-			<td> <%= item.unit%></td>
-			<td>|<%=link_to 'Modifier',{:action=>'edit',:id=>item.id}%>
-			|<%=link_to 'Supprimer',{:action=>'delete',:id=>item.id}%></td>
+			<td><%=link_to item.name,{:action=>'show',:id=>item.id}%></td>
+			<td><%= item.stock%></td>
+			<td><%= item.unit%></td>
+			<td><%=link_to 'Modifier',admin_item_edit_path(:id=>item.id), class:'editButton'%>
+				<%=link_to 'Supprimer',admin_item_delete_path(:id=>item.id), class:'deleteButton'%></td>
 		</tr>
 		<%end%>
 	</tbody>
 </table>
-<%=link_to 'Nouveau', :action=>'new'%>
+<%=will_paginate @items, class:'newButton'%>
+<%=link_to 'Nouveau', admin_item_new_path(), class:'newButton'%>

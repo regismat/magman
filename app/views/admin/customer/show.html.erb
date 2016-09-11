@@ -1,16 +1,28 @@
-Informations de <%=@customer.names%>
+<h2>Agent: <%=@customer.names%></h2>
 
 <table>
 	<tr>
-		<td>Noms : </td><td><b><%=@customer.names%></td></b>
+		<td>Noms</td><td><b><%=@customer.names%></td></b>
 	</tr>
 	<tr>
-		<td>Téléphone : </td><td><b><%=@customer.telephone%></td></b>
+		<td>Téléphone</td><td><b><%=@customer.telephone%></td></b>
 	</tr>
 	<tr>
-		<td>E-mail :</td><td><b><%=@customer.email%></td></b>
+		<td>E-mail</td><td><b><%=@customer.email%></td></b>
 	</tr>
 </table>
 
-<p><%=link_to 'Retour', :action=>'index'%>
-<%=link_to 'Modifier', :action=>'edit',:id=>@customer %></p>
+<p>
+	<%if current_user%>
+	<%if admin?%>
+<%=link_to 'Retour', bookings_index_path(),class:'link'%>
+<%=link_to 'Modifier', admin_customer_edit_path(:id=>@customer),class:'editButton'%>	
+	<%else%>
+<%=link_to 'Retour', admin_customer_index_path(),class:'link'%>
+<%=link_to 'Modifier', admin_customer_edit_path(:id=>@customer),class:'editButton'%>
+
+	<%end%>
+	<%else%>
+	<%end%>
+	
+</p>

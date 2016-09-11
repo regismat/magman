@@ -1,0 +1,37 @@
+<h2>Retraits sans confirmation de reception</h2>
+<h2><%="#{@orders.count} #{"résultat".pluralize(@orders.count)}"%></h2>
+
+<table>
+	<thead>
+		<tr>
+			<td><strong>Date</strong></td>
+			<td><strong>Article</strong></td>
+			<td><strong>Quantité</strong></td>
+			<td><strong>Demandeur</strong></td>
+			<td><b>Expediteur</b></td>
+			<td><b>Statut</b></td>
+			<td><strong>Opérations</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		<%@orders.each do |ord|%>		
+		<tr>
+			<td><%= ord.date%></td>
+			<td><%= ord.item.name%></td>
+			<td><%= ord.quantity%></td>
+			<td><%=Customer.find(ord.customer_id).names%></td>
+			<td><%=Customer.find(ord.shipper).names%></td>
+			<%if ord.status==1%>
+			<td>Livré</td>
+				<%else%>
+			<td>En cours</td>	
+				<%end%>
+			
+			<td><%=link_to 'Confirmer',operation_order_signature_path(:id=>ord.id),class:'editButton'%></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+ <%=link_to "Retour à l'accueil",bookings_index_path(),class:'link'%>
+
