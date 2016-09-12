@@ -42,7 +42,7 @@ class BookingsController < ApplicationController
     @customer = @user.customer   
     
     if params[:booking][:item_id].present? && @customer.items.include?(Item.find(params[:booking][:item_id]))
-      flash[:notice] = "Une autre réservation du même article est en attente! Supprimez-la pour continuer."
+      flash[:notice] = "Une autre réservation de #{Item.find(params[:booking][:item_id]).name} est en attente! Supprimez-la pour continuer."
       redirect_to :action=>'index'
     else
       @booking = Booking.new(booking_params)

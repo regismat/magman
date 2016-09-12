@@ -1,37 +1,3 @@
-<h2>Articles en stock et réservation</h2>
-<table>
-	<thead>
-		<tr>
-			
-			<td><b>Nom</b></td>
-			<td><b>Quantité</b></td>
-			<td>Opération</td>
-		</tr>
-	</thead>
-	<tbody>
-	<%if @reserves.nil?%>
-		<tr>
-			<td>
-				<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
-		<%else%>
-		<%@reserves.each do |rez|%>
-			</td>
-			
-		</tr>
-		
-		<tr>
-			
-			<td><%=rez.item.name%></td>
-			<td><%="#{rez.quantity} #{rez.item.unit.pluralize(rez.quantity)}"%></td>
-			<td><%=link_to 'Annuler',bookings_delete_path(:id=>rez.id), class:'deleteButton'%></td>
-	
-		</tr>
-		<%end%>
-			
-	<%end%>
-		
-	</tbody>
-</table>
 
 <%=form_tag :action=>'create' do%>
 <% if @booking.errors.any? %>
@@ -43,6 +9,14 @@
         <% end %>
      	 </ul>
     </div>
+    <%else%>
+    
+    <%if current_user.customer.bookings.empty?%>
+	<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
+<%else%>
+	<%=render 'bookings'%>
+<%end%>
+    
 <% end %>
 <table>
 	<thead>

@@ -9,28 +9,21 @@
 		</tr>
 	</thead>
 	<tbody>
-	<%if @reserves.nil?%>
+	<%if current_user.customer.bookings%>
+			<%@reserves.each do |rez|%>
 		<tr>
-			<td>
-				<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
-		<%else%>
-		<%@reserves.each do |rez|%>
-			</td>
-			
-		</tr>
-		
-		<tr>
-			
 			
 			<td><%=rez.item.name%></td>
 			<td><%="#{rez.quantity} #{rez.item.unit.pluralize(rez.quantity)}"%></td>
 			<td><%=link_to 'Annuler',bookings_delete_path(:id=>rez.id), class:'deleteButton'%></td>
-	
+			
 		</tr>
+			
 		<%end%>
+		<%else%>
+		
 			
 	<%end%>
 		
 	</tbody>
 </table>
-<br />
