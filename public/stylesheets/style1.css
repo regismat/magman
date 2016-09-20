@@ -4,6 +4,7 @@ body, p, ol, ul,td {
 font-family: verdana, arial, helvetica, sans-serif, Geneva, Arial;
 font-size: small;
 line-height: 15px;
+width:;
 }
 h1,h2{
 	font-family: 'Proxima-Nova', Arial, sans-serif;
@@ -23,7 +24,11 @@ h1, h2, h3 {
 }
 h1, h2, h3, h4, h5, h6 {
     margin: 0px 0;
+    
     font-weight: bold;
+    
+   
+    
 }
 .title{
 	    text-shadow: .05em .05em .1em #cccccc;
@@ -33,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     float: left;
     color: #C9C9C9;
-	padding: 20px 0px 10px 50px;
+padding: 20px 0px 10px 50px;
    
 }
 .editButton,.deleteButton,.newButton,.link{
@@ -83,30 +88,29 @@ h1, h2, h3, h4, h5, h6 {
 
 
 div#container {
-	width: 100%;
-	margin: 0px auto;
-	padding:0;
+width: 100%;
+margin: 0px auto;
 }
-div#user_nav{
-		
-	color: black;
-	vertical-align:middle;
+div#user_nav a{	
+	color: white;
+	vertical-align: 10%;
 	float:right;
-	padding: 0px 0px 0px;
-	background:white;
-	hover{color:white;background:black; }
+	padding: 3px ;
 }
-
+table#user{
+	color :azure;
+}
 #table tbody tr{
-	border-collapse:;
-	border-spacing:;	
-	border: 2px solid;
-	vertical-align: middle;
-	margin : auto;
-	padding : 10px;
-	text-align:;
-	border-radius: 4px;
-	border-color: black;
+border-collapse:;
+border-spacing:;	
+border: 2px solid;
+vertical-align: middle;
+margin : auto;
+padding : 10px;
+text-align:;
+
+border-radius: 4px;
+border-color: black;
 
 }
 table{
@@ -117,7 +121,9 @@ table{
 }
 
 table tr{
-	border-bottom:1px solid #C2C2C2;	
+	border-bottom:1px solid;
+	border-bottom-color: #C2C2C2;
+	
 }
 table thead{
 	text-align:left;
@@ -144,34 +150,39 @@ table tbody	tr{
 }
 div#header {
 	width:100%;
-	background-color: black;
-	text-align:center;
-	padding: 10px 0px 0px;
-	text-align:left;
+background-color: black;
+text-align:center;
+padding: 20px 0px 0px;
+text-align:left;
 }
 div#content {
-	background-color:#c3e7a9;
-	float: left;
-	width: 100%;
-	padding:10px 0px 25px;
-	border-radius: 0px;
+background-color:#c3e7a9;
+float: left;
+width: 100%;
+padding: 5px 0px 10px;
+border-radius: 0px;
 }
 div#content h3 {
-	margin-top: 15px;
+margin-top: 15px;
 }
-
+pre {
+background-color: #eee;
+padding: 10px;
+font-size: 11px;
+}
 footer{
 	background-color:#000000;
+	width: 100%
 	padding:10px 5px 5px;
 }
 a { color: #000; }
 a:visited{}
 a:hover { color: #fff; background-color:#000; }
 div#notice {
-	padding:0px;
-	background-color: #E1F5B7;
-	color:#000000;
-	width:100%;
+padding:10px;
+background-color: #E1F5B7;
+color:#000000;
+width:auto;
 
 }
 
@@ -180,7 +191,7 @@ div#notice {
 	padding:0%;
 	background-color:white;
 	color:#DA4F49;
-	:25%;
+	width:25%;
 	float:none;
 	vertical-align: middle;
 	margin : auto
@@ -192,23 +203,29 @@ div#notice {
 	color:white;
 }
 body {
-	vertical-align:middle;
-	display:block;
-	margin-right:auto;
-	width: 100%;
-	margin:0% 0% 0%;
+vertical-align:middle;
+display: block;
+margin-right:auto;
+width: full;
+margin:0% 0% 0%;
 }
 #nav{
+	
 	position:relative;
-	width:45%;
+	width:50%;
 	margin:0 auto;
 	margin-top:5px;
 	margin-bottom:5px;
-	padding: 5px;
+	padding: 0px;
+	
+    
 }
 ul#navigation{
+	
+	
 	margin: 0px auto;
 	position:relative;
+	
 	border-left:0px solid #c4dbe7;
 	border-right:0px solid #c4dbe7;
 }
@@ -216,12 +233,12 @@ ul#navigation li{
 	display:inline;
 	font-size: 12px;
 	font-weight:bold;
-	margin:0px;
-	padding:0px;	
+	margin:0;
+	padding:0;
+	float:0;
 	position:relative;
-	border-top:1px solid #C4DBE7;
-	border-bottom:2px solid #C4DBE7;
-	
+	border-top:1px sold #C4DBE7;
+	border-bottom:2x solid #C4DBE7;
 }
 ul#navigation li a {
 	padding:10px 25px;
@@ -289,7 +306,7 @@ ul#navigation ul{
 }
 ul#navigation ul li ul{
 	top:0;
-	left:180px; /*strong related to width:180px; from above*/
+	left:181px; /*strong related to width:180px; from above*/
 }
 ul#navigation ul li{
 	clear:both;

@@ -18,7 +18,7 @@
 </table>
 <%end%>
 
-<h2>Rapport de ravitaillement: <%=@article%></h2>
+<h2>Rapport d'approvisionnement : <%=@article%></h2>
 <h2><%="#{@deliveries.count} #{"résultat".pluralize(@deliveries.count)}"%></h2>
 <table>
 	<thead>
@@ -81,5 +81,5 @@
 <%=will_paginate @deliveries, class:'newButton'%>
 <%=link_to 'Importer vers Excel', operation_delivery_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "xls"),class:'link'%>
 <%=link_to 'Imprimer PDF', operation_delivery_check_path(:item_id=>params[:item_id],:debut=>params[:debut], :fin=>params[:fin], format: "pdf"),class:'link'%>
-<%=link_to 'Livraisons effectuées', operation_delivery_index_path(),class:'link'%>
+<%=link_to 'Approvisionnements effectués', operation_delivery_index_path(),class:'link'%>
 <%=link_to 'Nouveau', operation_delivery_new_path(), class:'newButton'%>

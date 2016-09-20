@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>MagMan</title>
-  <%= stylesheet_link_tag "style" %>
+  	<%= stylesheet_link_tag "style" %>
 </head>
 <body id="library">
 	
@@ -13,10 +13,10 @@
 		<div id="user_nav">
   	<%if current_user%>
   	<%if current_user.customer%>
-  		
-  		<%=link_to "Mon profil |",admin_customer_show_path(:id=>current_user.customer)%>
-  		<%=link_to 'Se deconnecter |', logout_path %>
   		<a><strong><%=current_user.customer.names%></strong></a>
+     	<%=link_to "|Mon profil |",admin_customer_show_path(:id=>current_user.customer)%>
+  		<%=link_to '|Se deconnecter |', logout_path %>
+  		
   		
   		<%else%>
   		<%= link_to "Nouveau? Enregistrez-vous ici!", signup_path %> ou
@@ -31,7 +31,6 @@
    
     </div>
     <div id="container">
-    <br /> <div class=""><h1><%$pg_name%></h1></div>
 <% flash.each do |name, msg| %>
 <%if name=='notice'%>
 <%= content_tag :div, msg, :id => "notice" %>
@@ -44,9 +43,8 @@
 	
 </div>
 	
-
-
-	<%if current_user%>
+	<div id="content">
+		<%if current_user%>
 	<%if current_user.role_id==1%>
 	<nav id="nav">
 	<ul id="navigation">
@@ -68,8 +66,8 @@
 		</li>
 		<li><a>Opérations &raquo;</a>
 			<ul>
-				<li><%=link_to 'Livraisons', {:controller=>'operation/delivery',:action=>'index'}%></li>
-				<li><%=link_to 'Rapports de livraisons', {:controller=>'operation/delivery',:action=>'check'}%></li>
+				<li><%=link_to 'Approvisionnements', {:controller=>'operation/delivery',:action=>'index'}%></li>
+				<li><%=link_to "Rapports d'approvisionnements", {:controller=>'operation/delivery',:action=>'check'}%></li>
 				<li><%=link_to 'Reserver', {:controller=>'/bookings',:action=>'index'}%></li>
 				<li><%=link_to 'Retraits', {:controller=>'operation/order',:action=>'index'}%></li>
 				<li><%=link_to 'Rapports de retraits', {:controller=>'operation/order',:action=>'check'}%></li>
@@ -103,7 +101,6 @@
 	
 	<%end%>
 
-	<div id="content">
 		<%= yield -%>
 		
 	</div>

@@ -6,7 +6,9 @@ class Delivery < ActiveRecord::Base
  
   validates :item_id, presence:{message:" non sélectionné"}
   validates :quantity, presence:{message:" ne peut être nul ni vide"},
-                       numericality:{message:" ne supporte que des nombres"}
+                       numericality:{message:" ne supporte que des nombres"}, 
+                       :allow_nill=>false,
+                       :allow_blank=>false
   validates :price, presence:{message:" ne peut être nul ni vide"},
                        numericality:{message:" ne supporte que des nombres"}
   validates :provider_id, presence:{message:" non sélectionné"}

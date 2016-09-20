@@ -4,8 +4,6 @@ class Order < ActiveRecord::Base
   belongs_to :customer
   
   
-  
-  
   validates :item_id, presence:{message:" non sélectionné"}
   validates :quantity, presence:{message:" ne peut être nul ni vide"},
                        numericality:{message:" ne supporte que des nombres"},

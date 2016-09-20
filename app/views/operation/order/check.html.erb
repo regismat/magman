@@ -1,14 +1,10 @@
 <%=form_tag operation_order_check_path, method: :get do%>
 <table>
-	<th>
-		<tr><td></td> </tr>
-		<tr>
-			<td></td>
-			<td></td>
-			
-		</tr>
-	</th>
+	
 	<tbody>
+		<tr>
+			<td>Article</td>			
+		</tr>
 	<tr>
 		<td>
 			<%= select_tag :item_id, options_for_select(Item.all.map{|c| [c.name, c.id]}) %>

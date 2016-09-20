@@ -9,25 +9,28 @@
 		</tr>
 		
 	</thead>
-	<%@users.each do |u|%>
+	
 	<tbody>
+		<%@users.each do |u|%>
 		<tr>
 			<td><%=u.username%></td>
 			<%if u.customer%>
 			<td><%=link_to u.customer.names,{:controller=>'admin/customer',:action=>:show,:id=>u.customer_id}%></td>
 			<%else%>
-			<td></td>
+			<td>(à presiser)</td>
 			<%end%>
 		
 			<td><%if u.role%>
 			<%=u.role.title%>
+			<%else%>
+			(à presiser)
 			<%end%></td>
 			<td><%=link_to 'Mot de passe',users_edit_path(:id=>u),class:'editButton'%>
 				<%=link_to "Propriétaire/niveau d'accès",users_access_edit_path(:id=>u),class:'editButton'%></td>
 		</tr>
-		
+	<%end%>	
 	</tbody>
-	<%end%>
+	
 	
 </table>
 <%=link_to "Retour", users_list_path(),class:'link'%>  

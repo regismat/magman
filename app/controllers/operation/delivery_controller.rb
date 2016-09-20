@@ -3,9 +3,11 @@ class Operation::DeliveryController < ApplicationController
   layout 'standard'
   
   def check
+    #params.require(:delivery).permit(:debut,:fin)
     load_data   
     @deliveries_xls = Delivery.where(["item_id=:it AND date>= :debut AND date<=:fin",it: params[:item_id],debut: params[:debut],fin: params[:fin]]).order(date: :desc) 
     @deliveries = Delivery.paginate(:page => params[:page], :per_page => 10).where(["item_id=:it AND date>= :debut AND date<=:fin",it: params[:item_id],debut: params[:debut],fin: params[:fin]]).order(date: :desc)
+    #@deliveries = Delivery.paginate(:page => params[:page], :per_page => 10).where(["item_id=:it AND date>= :debut AND date<=:fin",it: params[:item_id],debut: params[:debut],fin: params[:fin]]).order(date: :desc)
     @quantity = @deliveries.sum("quantity*price")
     @qte = @deliveries.sum("quantity")
     if params[:item_id]
@@ -19,7 +21,7 @@ class Operation::DeliveryController < ApplicationController
         format.html
         format.pdf do 
         pdf=DeliverPdf.new(@article,@deliveries_xls,@quantity,params[:debut],params[:fin],@qte)
-        send_data pdf.render, filename:"Magman_rapport_livraisons_#{Time.now}.pdf",
+        send_data pdf.render, filename:"Magman_rapport_approvisionnement_#{Time.now}.pdf",
                               type:"application/pdf",
                               disposition: "inline"
 
@@ -55,11 +57,9 @@ class Operation::DeliveryController < ApplicationController
   def create
     load_data
     @delivery = Delivery.new(deliv_params)
-    if params[:quantity]
-      @stock = @delivery.item.stock+@delivery.quantity
-      @delivery.item.stock = @stock
-    end
+  
     if @delivery.save
+      @stock = @delivery.item.stock + @delivery.quantity
       @delivery.item.update_attribute(:stock,@stock)
       flash[:notice] = "Opération effectuée avec succès!"
       redirect_to :action=>'index'
@@ -67,7 +67,8 @@ class Operation::DeliveryController < ApplicationController
       load_data
       flash[:notice] = "Veillez remplir les champs vides"
       render :action=>'new'
-    end 
+    end
+     
   end
 
   def show

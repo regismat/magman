@@ -26,7 +26,7 @@ class DeliverPdf < Prawn::Document
     bounding_box([0, y_position], :width=>270, :height=>75) do
       text "APPLICATION DE GESTION DU MAGASIN"
       text "UCBC MagMan"
-      text "Rapport de livraison du #{@debut} au #{@fin}"
+      text "Rapport d'approvisionnement du #{@debut} au #{@fin}"
       text "Date du jour : #{Time.now}"
       text "Description : #{@article}"
     end
