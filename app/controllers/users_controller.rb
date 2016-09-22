@@ -62,8 +62,14 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(user_params)
+    @admin = Customer.find_by_names("admin")
     if @user.save
-      session[:user_id]=@user.id
+      #session[:user_id]=@user.id
+      if @user.username =='admin'
+        @user.update_attribute(:customer_id,@admin.id)
+        @user.update_attribute(:role_id,1)
+        flash[:notice] = " Vous etes un admininistrateur!"
+      end
       flash[:notice] = "Identification réussie! Veillez contacter le magasinier pour finaliser."
       redirect_to '/login'
     else
