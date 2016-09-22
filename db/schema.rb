@@ -11,42 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626210720) do
+ActiveRecord::Schema.define(version: 20160922034151) do
 
 # Could not dump table "bookings" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
 
-  create_table "customers", force: :cascade do |t|
-    t.integer "department_id", null: false
-    t.string  "names"
-    t.string  "telephone"
-    t.string  "email"
-  end
+# Could not dump table "customers" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
-  create_table "deliveries", primary_key: "delivery_order", force: :cascade do |t|
-    t.date    "date",                      null: false
-    t.integer "quantity",    default: 0,   null: false
-    t.float   "price",       default: 0.0, null: false
-    t.integer "item_id",                   null: false
-    t.integer "provider_id",               null: false
-  end
+# Could not dump table "deliveries" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "departments", force: :cascade do |t|
     t.string "description"
   end
 
   create_table "items", force: :cascade do |t|
-    t.string  "name",               null: false
+    t.string  "name"
     t.string  "detail"
-    t.integer "stock",  default: 0
+    t.integer "stock"
   end
 
-  create_table "orders", force: :cascade do |t|
-    t.date    "date"
-    t.float   "quantity"
-    t.integer "item_id"
-    t.integer "customer_id"
-  end
+# Could not dump table "orders" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "providers", force: :cascade do |t|
     t.string "names",     null: false
@@ -60,14 +47,7 @@ ActiveRecord::Schema.define(version: 20160626210720) do
     t.string "description"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string  "username",        null: false
-    t.string  "password_digest"
-    t.integer "customer_id"
-    t.integer "role_id"
-    t.boolean "status"
-  end
-
-  add_index "users", ["username"], name: "sqlite_autoindex_users_1", unique: true
+# Could not dump table "users" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
 end

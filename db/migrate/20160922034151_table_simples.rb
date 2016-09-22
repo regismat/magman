@@ -1,9 +1,10 @@
 class TableSimples < ActiveRecord::Migration
   def change
     create_table "items", force: :cascade do |t|
-      t.string  "name",               null: false
+      t.string  "name"            
       t.string  "detail"
-      t.integer "stock",  default: 0
+      t.integer "stock"
+      t.string  "unit"
     end
     
     create_table "departments", force: :cascade do |t|
