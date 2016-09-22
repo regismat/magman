@@ -45,6 +45,7 @@ class TableSimples < ActiveRecord::Migration
     create_table "orders", force: :cascade do |t|
       t.date    "date"
       t.float   "quantity"
+      t.string  "status"
   
     end
     
