@@ -1,1 +1,1 @@
-## MagMan is a store management developed in Ruby on Rails
+## MagMan is a store management system developed in Ruby on Rails
