@@ -1,1 +1,1 @@
-# magman<%flash[:notice]="Selectionnez un article puis precisez la quantité à reserver."%>
+
